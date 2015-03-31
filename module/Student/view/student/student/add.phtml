@@ -1,0 +1,24 @@
+<?php $this->headTitle('Add new Student'); ?>
+<h1><?php echo $this->escapeHtml('Add new Student'); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('student', array('action' => 'add')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+<div class="row">
+	<?php echo $this->formLabel($form->get('first_name')); ?>
+	<?php echo $this->formElement($form->get('first_name')); ?>
+	<?php echo $this->formElementErrors($form->get('first_name')); ?>
+</div>
+
+<div class="row">
+	<?php echo $this->formLabel($form->get('last_name')); ?>
+	<?php echo $this->formElement($form->get('last_name')); ?>
+	<?php echo $this->formElementErrors($form->get('last_name')); ?>
+</div>
+
+
+<?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
