@@ -8,17 +8,27 @@ echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
 ?>
 <div class="row">
-	<?php echo $this->formLabel($form->get('first_name')); ?>
-	<?php echo $this->formElement($form->get('first_name')); ?>
-	<?php echo $this->formElementErrors($form->get('first_name')); ?>
+	<?php echo $this->formLabel($form->get('studentId')); ?>
+	<?php echo $this->formElement($form->get('studentId')); ?>
+	<?php echo $this->formElementErrors($form->get('studentId')); ?>
+</div>
+<div class="row">
+	<?php echo $this->formLabel($form->get('firstName')); ?>
+	<?php echo $this->formElement($form->get('firstName')); ?>
+	<?php echo $this->formElementErrors($form->get('firstName')); ?>
 </div>
 
 <div class="row">
-	<?php echo $this->formLabel($form->get('last_name')); ?>
-	<?php echo $this->formElement($form->get('last_name')); ?>
-	<?php echo $this->formElementErrors($form->get('last_name')); ?>
+	<?php echo $this->formLabel($form->get('lastName')); ?>
+	<?php echo $this->formElement($form->get('lastName')); ?>
+	<?php echo $this->formElementErrors($form->get('lastName')); ?>
 </div>
-
+<div class="row">
+    <?php //echo $this->formRow($form->get('class_id')); ?>
+	<?php echo $this->formLabel($form->get('class')); ?>
+	<?php echo $this->formElement($form->get('class')); ?>
+	<?php echo $this->formElementErrors($form->get('class')); ?>
+</div>
 
 <?php echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();

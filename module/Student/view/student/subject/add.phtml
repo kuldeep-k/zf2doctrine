@@ -1,0 +1,29 @@
+<?php $this->headTitle('Add new Subject'); ?>
+<h1><?php echo $this->escapeHtml('Add new Subject'); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('subject', array('action' => 'add')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+<div class="row">
+	<?php echo $this->formLabel($form->get('name')); ?>
+	<?php echo $this->formElement($form->get('name')); ?>
+	<?php echo $this->formElementErrors($form->get('name')); ?>
+</div>
+
+<div class="row">
+	<?php echo $this->formLabel($form->get('description')); ?>
+	<?php echo $this->formElement($form->get('description')); ?>
+	<?php echo $this->formElementErrors($form->get('description')); ?>
+</div>
+<div class="row">
+    <?php //echo $this->formRow($form->get('class_id')); ?>
+	<?php echo $this->formLabel($form->get('class')); ?>
+	<?php echo $this->formElement($form->get('class')); ?>
+	<?php echo $this->formElementErrors($form->get('class')); ?>
+</div>
+
+<?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();

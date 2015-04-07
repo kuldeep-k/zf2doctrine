@@ -1,0 +1,17 @@
+<?php $this->headTitle('Edit School Class'); ?>
+<h1><?php echo $this->escapeHtml('Edit School Class'); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('schoolclass', array('action' => 'edit', 'id'  => $this->id)));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+<div class="row">
+	<?php echo $this->formLabel($form->get('name')); ?>
+	<?php echo $this->formElement($form->get('name')); ?>
+	<?php echo $this->formElementErrors($form->get('name')); ?>
+</div>
+
+<?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();

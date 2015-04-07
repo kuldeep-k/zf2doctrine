@@ -29,16 +29,6 @@ class Marks
     private $marks;
 
     /**
-     * @var \Student\Entity\Subject
-     *
-     * @ORM\ManyToOne(targetEntity="Student\Entity\Subject")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
-     * })
-     */
-    private $subject;
-
-    /**
      * @var \Student\Entity\Student
      *
      * @ORM\ManyToOne(targetEntity="Student\Entity\Student")
@@ -47,6 +37,16 @@ class Marks
      * })
      */
     private $student;
+
+    /**
+     * @var \Student\Entity\Subject
+     *
+     * @ORM\ManyToOne(targetEntity="Student\Entity\Subject")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
+     * })
+     */
+    private $subject;
 
 
 
@@ -84,29 +84,6 @@ class Marks
     }
 
     /**
-     * Set subject
-     *
-     * @param \Student\Entity\Subject $subject
-     * @return Marks
-     */
-    public function setSubject(\Student\Entity\Subject $subject = null)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return \Student\Entity\Subject 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
      * Set student
      *
      * @param \Student\Entity\Student $student
@@ -127,5 +104,28 @@ class Marks
     public function getStudent()
     {
         return $this->student;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \Student\Entity\Subject $subject
+     * @return Marks
+     */
+    public function setSubject(\Student\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \Student\Entity\Subject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

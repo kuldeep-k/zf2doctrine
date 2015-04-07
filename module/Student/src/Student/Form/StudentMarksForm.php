@@ -11,13 +11,25 @@ use Zend\InputFilter\Factory as InputFactory;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
-use Student\Entity\Student;
-use Student\Validate\NoObjectExists;
+use Student\Entity\Subject;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class StudentForm extends Form implements InputFilterAwareInterface, ObjectManagerAwareInterface
+class StudentMarksForm extends Form implements InputFilterAwareInterface, ObjectManagerAwareInterface
 {
 	protected $inputFilter;
 	protected $objectManager;
+	protected $service_manager;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->service_manager = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->service_manager;
+    }
     public function setObjectManager(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
@@ -28,66 +40,32 @@ class StudentForm extends Form implements InputFilterAwareInterface, ObjectManag
         return $this->objectManager;
     }
     
-	public function __construct($objectManager)
+	public function init()
 	{
-		parent::__construct();
-		$this->setObjectManager($objectManager);
+		//parent::__construct();
 		$this->setInputFilter($this->getInputFilter());
-		$this->setHydrator(new DoctrineHydrator($objectManager, 'Student\Entity\Student'));
+		$this->setHydrator(new DoctrineHydrator($this->getObjectManager(), 'Student\Entity\Subject'));
 		//$this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new Student());;
 		
 		$this->setAttribute('method', 'post');
+		//echo get_class($this->getServiceLocator()->get('Student\Form\MarksFieldset'));die;
+//		echo get_class($this->getServiceLocator()->get('Student\Form\MarksFieldset'));die;
+		
 		$this->add(array(
-			'name' => 'id',
-			'attributes' => array(
-				'type'  => 'hidden',
-			),
-		));
-
-        $this->add(array(
-			'name' => 'studentId',
-			'attributes' => array(
-				'type'  => 'text',
-			),
-			'options' => array(
-				'label'  => 'Student Id',
-			),
-		));
-
-		$this->add(array(
-			'name' => 'firstName',
-			'attributes' => array(
-				'type'  => 'text',
-			),
-			'options' => array(
-				'label'  => 'First name',
-			),
-		));
-
-
-		$this->add(array(
-			'name' => 'lastName',
-			'attributes' => array(
-				'type'  => 'text',
-			),
-			'options' => array(
-				'label'  => 'Last name',
-			),
-		));
-
-		$this->add(array(
-		    'type' => 'DoctrineModule\Form\Element\ObjectSelect',  
-			'name' => 'class',
-			'options' => array (
-			    'label' => 'Class',
-			    'object_manager' => $objectManager,
-                'target_class'   => 'Student\Entity\SchoolClass',
-                'property'       => 'name'
-			),
-			'attributes' => array(
-                'required' => '*'
-            ),
-		));
+             'type' => 'Zend\Form\Element\Collection',
+             'name' => 'marks',
+             'options' => array(
+                 'label' => 'Please choose marks for this subjects',
+                 'count' => 5,
+                 'should_create_template' => true,
+                 'allow_add' => true,
+                 'target_element' => array(
+                     //'type' => $this->getServiceLocator()->get('FormElementManager')->get('Student\Form\MarksFieldset'),
+                     //'type' => $this->getServiceLocator()->get('Student\Form\MarksFieldset'),
+                     'type' => 'Student\Form\MarksFieldset',
+                 ),
+             ),
+         ));
 		$this->add(array(
 			'name' => 'submit',
 			'attributes' => array(
@@ -106,41 +84,7 @@ class StudentForm extends Form implements InputFilterAwareInterface, ObjectManag
             $factory = new InputFactory();
     
             $inputFilter->add($factory->createInput(array(
-                'name' => 'studentId',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 2,
-                            'max' => 20,
-                        ),
-                    ),
-                    array(
-                        //'name' => 'DoctrineModule\Validator\NoObjectExists',
-                        'name' => 'Student\Validate\NoObjectExists',
-                        'otherField' => 'class',
-                        //'name' => new NoObjectExists(array('object_repository' => $this->getObjectManager(), 'fields' => array('studentId', 'class'))),
-                        'options' => array(
-                            'object_repository' => $this->getObjectManager()->getRepository('Student\Entity\Student'),
-                            'fields' => array('studentId', 'class'),
-                            //'fields' => 'name', <--- with one field it works fine
-                            'messages' => array(
-                                //'objectFound' => 'Custom text'
-                            ),
-                        )
-                    )
-                ),
-                
-            )));
-            
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'firstName',
+                'name' => 'name',
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StripTags'),
@@ -158,7 +102,7 @@ class StudentForm extends Form implements InputFilterAwareInterface, ObjectManag
                 ),
             )));
             $inputFilter->add($factory->createInput(array(
-                'name' => 'lastName',
+                'name' => 'description',
                 'required' => false,
                 'filters' => array(
                     array('name' => 'StripTags'),
@@ -174,7 +118,7 @@ class StudentForm extends Form implements InputFilterAwareInterface, ObjectManag
                         ),
                     ),
                 ),
-            )));    
+            )));
             $inputFilter->add($factory->createInput(array(
                 'name' => 'class',
                 'required' => true,
@@ -188,7 +132,7 @@ class StudentForm extends Form implements InputFilterAwareInterface, ObjectManag
                         ),
                     ),
                 ),*/
-            )));
+            )));    
     
     
             $this->inputFilter = $inputFilter;

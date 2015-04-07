@@ -32,13 +32,13 @@ class Module
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
+                    //__NAMESPACE__ => __DIR__ . '/src/' . preg_replace("/^MyApp\\/", "", __NAMESPACE__),
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
         );
     }
 
-    
     public function getServiceConfig()
     {
         return array(
@@ -46,4 +46,5 @@ class Module
             ),
         );
     }
+    
 }

@@ -2,99 +2,33 @@
 <h1><?php echo $this->escapeHtml('Edit User'); ?></h1>
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('user', array('action' => 'edit', 'id'     => $this->id)));
+$form->setAttribute('action', $this->url('student', array('action' => 'edit', 'id'  => $this->id)));
 $form->prepare();
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
 ?>
 <div class="row">
-	<?php echo $this->formLabel($form->get('firstname')); ?>
-	<?php echo $this->formElement($form->get('firstname')); ?>
-	<?php echo $this->formElementErrors($form->get('firstname')); ?>
+	<?php echo $this->formLabel($form->get('studentId')); ?>
+	<?php echo $this->formElement($form->get('studentId')); ?>
+	<?php echo $this->formElementErrors($form->get('studentId')); ?>
 </div>
 
 <div class="row">
-	<?php echo $this->formLabel($form->get('lastname')); ?>
-	<?php echo $this->formElement($form->get('lastname')); ?>
-	<?php echo $this->formElementErrors($form->get('lastname')); ?>
+	<?php echo $this->formLabel($form->get('firstName')); ?>
+	<?php echo $this->formElement($form->get('firstName')); ?>
+	<?php echo $this->formElementErrors($form->get('firstName')); ?>
 </div>
 
 <div class="row">
-	<?php echo $this->formLabel($form->get('email')); ?>
-	<?php echo $this->formElement($form->get('email')); ?>
-	<?php echo $this->formElementErrors($form->get('email')); ?>
+	<?php echo $this->formLabel($form->get('lastName')); ?>
+	<?php echo $this->formElement($form->get('lastName')); ?>
+	<?php echo $this->formElementErrors($form->get('lastName')); ?>
 </div>
-
 <div class="row">
-	<?php echo $this->formLabel($form->get('username')); ?>
-	<?php echo $this->formElement($form->get('username')); ?>
-	<?php echo $this->formElementErrors($form->get('username')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('algorithm')); ?>
-	<?php echo $this->formElement($form->get('algorithm')); ?>
-	<?php echo $this->formElementErrors($form->get('algorithm')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('salt')); ?>
-	<?php echo $this->formElement($form->get('salt')); ?>
-	<?php echo $this->formElementErrors($form->get('salt')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('password')); ?>
-	<?php echo $this->formElement($form->get('password')); ?>
-	<?php echo $this->formElementErrors($form->get('password')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('application_id')); ?>
-	<?php echo $this->formElement($form->get('application_id')); ?>
-	<?php echo $this->formElementErrors($form->get('application_id')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('application_type_id')); ?>
-	<?php echo $this->formElement($form->get('application_type_id')); ?>
-	<?php echo $this->formElementErrors($form->get('application_type_id')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('is_active')); ?>
-	<?php echo $this->formElement($form->get('is_active')); ?>
-	<?php echo $this->formElementErrors($form->get('is_active')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('is_super_admin')); ?>
-	<?php echo $this->formElement($form->get('is_super_admin')); ?>
-	<?php echo $this->formElementErrors($form->get('is_super_admin')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('last_login')); ?>
-	<?php echo $this->formElement($form->get('last_login')); ?>
-	<?php echo $this->formElementErrors($form->get('last_login')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('created_at')); ?>
-	<?php echo $this->formElement($form->get('created_at')); ?>
-	<?php echo $this->formElementErrors($form->get('created_at')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('updated_at')); ?>
-	<?php echo $this->formElement($form->get('updated_at')); ?>
-	<?php echo $this->formElementErrors($form->get('updated_at')); ?>
-</div>
-
-<div class="row">
-	<?php echo $this->formLabel($form->get('deleted')); ?>
-	<?php echo $this->formElement($form->get('deleted')); ?>
-	<?php echo $this->formElementErrors($form->get('deleted')); ?>
+    <?php //echo $this->formRow($form->get('class_id')); ?>
+	<?php echo $this->formLabel($form->get('class')); ?>
+	<?php echo $this->formElement($form->get('class')); ?>
+	<?php echo $this->formElementErrors($form->get('class')); ?>
 </div>
 
 <?php echo $this->formSubmit($form->get('submit'));

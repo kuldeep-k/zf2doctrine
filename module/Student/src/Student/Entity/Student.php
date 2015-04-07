@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Student
  *
- * @ORM\Table(name="student")
+ * @ORM\Table(name="student", uniqueConstraints={@ORM\UniqueConstraint(name="student_id", columns={"student_id", "class_id"})}, indexes={@ORM\Index(name="class_id", columns={"class_id"})})
  * @ORM\Entity
  */
 class Student
@@ -20,6 +20,13 @@ class Student
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="student_id", type="integer", nullable=true)
+     */
+    private $studentId;
 
     /**
      * @var string
@@ -35,6 +42,16 @@ class Student
      */
     private $lastName;
 
+    /**
+     * @var \Student\Entity\SchoolClass
+     *
+     * @ORM\ManyToOne(targetEntity="Student\Entity\SchoolClass")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="class_id", referencedColumnName="id")
+     * })
+     */
+    private $class;
+
 
 
     /**
@@ -45,6 +62,29 @@ class Student
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set studentId
+     *
+     * @param integer $studentId
+     * @return Student
+     */
+    public function setStudentId($studentId)
+    {
+        $this->studentId = $studentId;
+
+        return $this;
+    }
+
+    /**
+     * Get studentId
+     *
+     * @return integer 
+     */
+    public function getStudentId()
+    {
+        return $this->studentId;
     }
 
     /**
@@ -91,5 +131,28 @@ class Student
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Set class
+     *
+     * @param \Student\Entity\SchoolClass $class
+     * @return Student
+     */
+    public function setClass(\Student\Entity\SchoolClass $class = null)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return \Student\Entity\SchoolClass 
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 }

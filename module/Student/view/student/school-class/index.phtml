@@ -1,0 +1,19 @@
+<?php $this->headTitle('School Class'); ?>
+<h1><?php echo $this->escapeHtml('School Class'); ?></h1>
+<p><a href="<?php echo $this->url('schoolclass', array('action'=>'add'));?>">Add new class</a></p>
+<table class="table  table-striped">
+<tr>
+<td>Id</td>
+<td>Name</td>
+<td>Actions</td>
+</tr>
+<?php foreach($classes as $user) : ?>
+<tr>
+<td><?php echo $this->escapeHtml($user->getId());?></td>
+<td><?php echo $this->escapeHtml($user->getName());?></td>
+<td><a href="<?php echo $this->url('schoolclass',array('action'=>'edit', 'id' => $user->getId()));?>">Edit</a>
+<a href="<?php echo $this->url('schoolclass',array('action'=>'delete', 'id' => $user->getId()));?>">Delete</a></td>
+</tr>
+<?php endforeach; ?>
+</table>
+

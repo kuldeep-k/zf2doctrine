@@ -1,0 +1,28 @@
+<?php $this->headTitle('Student Marks'); ?>
+<h1><?php echo $this->escapeHtml('Student Marks'); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('student', array('action' => 'marks')));
+$form->prepare();
+echo $this->form()->openTag($form);
+//echo $this->formHidden($form->get('id'));
+?>
+<div class="row">
+	<?php //echo $this->formLabel($form->get('marks')); ?>
+	<?php //echo $this->formElement($form->get('marks')); ?>
+	<?php //echo $this->formElementErrors($form->get('marks')); ?>
+	
+    <?php //echo $this->formCollection($form->get('marks')); ?>
+<div class="col-md-6">
+
+<?php foreach ($form->get('marks') as $col) { ?>
+<div class="row">
+<div class="col-md-6"><?php echo $this->formLabel($col->get('subject')); ?><?php echo $this->formElement($col->get('subject')) ?></div>
+<div class="col-md-6"><?php echo $this->formLabel($col->get('txtMarks')); ?><?php echo $this->formElement($col->get('txtMarks')) ?></div>
+</div>
+<?php } ?>
+	
+</div>
+</div>
+<?php echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
